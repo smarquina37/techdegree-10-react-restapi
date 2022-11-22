@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import axios from "axios";
+
+import Header from "./components/Header";
+import UserSignIn from "./components/UserSignIn";
+import UserSignUp from "./components/UserSignUp";
+import UserSignOut from "./components/UserSignOut";
+import Courses from "./components/Courses";
+// import CourseDetail from "./components/CourseDetail";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -21,23 +29,18 @@ const App = () => {
 
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      {data.map((data) => (
+      <Header />
+      <Routes>
+        <Route path="/" element={<Courses />} />
+        <Route path="/signin" element={<UserSignIn />} />
+        <Route path="/signup" element={<UserSignUp />} />
+        <Route path="/signout" element={<UserSignOut />} />
+        <Route path="/courses" element={<Courses />} />
+        {/* <Route path="/courses/:id" element={<CourseDetail />} /> */}
+      </Routes>
+      {/* {data.map((data) => (
         <li>{data.title}</li>
-      ))}
+      ))} */}
     </div>
   );
 };
