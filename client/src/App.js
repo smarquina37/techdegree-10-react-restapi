@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import withContext from "./Context";
 import axios from "axios";
 import apiBaseUrl from "./config";
 
+/* COMPONENTS */
 import Header from "./components/Header";
 import UserSignIn from "./components/UserSignIn";
 import UserSignUp from "./components/UserSignUp";
@@ -10,9 +12,7 @@ import UserSignOut from "./components/UserSignOut";
 import Courses from "./components/Courses";
 // import CourseDetail from "./components/CourseDetail";
 
-import withContext from "./Context";
-
-const UserSignUpWithContext = withContext(UserSignUp);
+// const HeaderWithContext = withContext(Header);
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -33,17 +33,17 @@ const App = () => {
   };
 
   return (
-    <div className="App">
+    <React.Fragment>
       <Header />
       <Routes>
         <Route path="/" element={<Courses />} />
         <Route path="/signin" element={<UserSignIn />} />
-        <Route path="/signup" element={<UserSignUpWithContext />} />
+        <Route path="/signup" element={<UserSignUp />} />
         <Route path="/signout" element={<UserSignOut />} />
         <Route path="/courses" element={<Courses />} />
         {/* <Route path="/courses/:id" element={<CourseDetail />} /> */}
       </Routes>
-    </div>
+    </React.Fragment>
   );
 };
 

@@ -1,24 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const Courses = () => {
-  // const [courseData, setCourseData] = useState();
   return (
     <div className="wrap main--grid">
-      <a className="course--module course--link" href="course-detail.html">
+      <Link className="course--module course--link" href="course-detail.html">
         <h2 className="course--label">Course</h2>
         <h3 className="course--title">Build a Basic Bookcase</h3>
-      </a>
-      <a className="course--module course--link" href="course-detail.html">
+      </Link>
+      <Link to="course-detail.html" className="course--module course--link">
         <h2 className="course--label">Course</h2>
         <h3 className="course--title">Learn How to Program</h3>
-      </a>
-      <a className="course--module course--link" href="course-detail.html">
+      </Link>
+      <Link to="course-detail.html" className="course--module course--link">
         <h2 className="course--label">Course</h2>
         <h3 className="course--title">Learn How to Test Programs</h3>
-      </a>
-      <a
+      </Link>
+      <Link
+        to="create-course.html"
         className="course--module course--add--module"
-        href="create-course.html"
       >
         <span className="course--add--title">
           <svg
@@ -33,7 +33,7 @@ export const Courses = () => {
           </svg>
           New Course
         </span>
-      </a>
+      </Link>
     </div>
   );
 };
