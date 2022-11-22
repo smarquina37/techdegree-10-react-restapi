@@ -6,10 +6,10 @@ export const Courses = ({ context }) => {
 
   useEffect(() => {
     .getCourses()
-    .then((resp) => setCourses(resp.data))
-    .catch((error) => {
-      console.log("Error fetching and parsing data", error);
-    })
+      .then((resp) => setCourses(resp.data))
+      .catch((error) => {
+        console.log("Error fetching and parsing data", error);
+      });
   }, []);
 
   return (
@@ -17,14 +17,6 @@ export const Courses = ({ context }) => {
       <Link className="course--module course--link" href="course-detail.html">
         <h2 className="course--label">Course</h2>
         <h3 className="course--title">Build a Basic Bookcase</h3>
-      </Link>
-      <Link to="course-detail.html" className="course--module course--link">
-        <h2 className="course--label">Course</h2>
-        <h3 className="course--title">Learn How to Program</h3>
-      </Link>
-      <Link to="course-detail.html" className="course--module course--link">
-        <h2 className="course--label">Course</h2>
-        <h3 className="course--title">Learn How to Test Programs</h3>
       </Link>
       <Link
         to="create-course.html"
