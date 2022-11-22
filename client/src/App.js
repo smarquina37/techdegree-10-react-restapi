@@ -39,9 +39,6 @@ const App = () => {
         <Route path="/courses" element={<Courses />} />
         {/* <Route path="/courses/:id" element={<CourseDetail />} /> */}
       </Routes>
-      {/* {data.map((data) => (
-        <li>{data.title}</li>
-      ))} */}
     </div>
   );
 };
