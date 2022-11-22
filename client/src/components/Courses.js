@@ -1,7 +1,7 @@
 import React from "react";
 
 export const Courses = () => {
-  // const [courseData, setCourseData] = useState()
+  // const [courseData, setCourseData] = useState();
   return (
     <div className="wrap main--grid">
       <a className="course--module course--link" href="course-detail.html">

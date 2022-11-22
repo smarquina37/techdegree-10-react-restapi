@@ -1,3 +1,5 @@
+import config from "./config";
+
 // make the GET and POST requests to the REST API
 export default class Data {
   api(path, method, body = null) {
