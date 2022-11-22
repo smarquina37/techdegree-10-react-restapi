@@ -1,7 +1,13 @@
 import connectApiBaseUrl from "./config";
 
 export default class Data {
-  api(path, method = "GET", body = null) {
+  api(
+    path,
+    method = "GET",
+    body = null,
+    requiresAuth = false,
+    credentials = null
+  ) {
     const url = connectApiBaseUrl + path;
 
     const options = {
@@ -13,6 +19,8 @@ export default class Data {
 
     if (body !== null) {
       options.body = JSON.stringify(body);
+    }
+    if (requiresAuth) {
     }
 
     return fetch(url, options);
@@ -52,7 +60,7 @@ export default class Data {
     }
   }
   async getCourse() {
-    const response = await this.api(`/courses/id`, "GET", null);
+    const response = await this.api(`/courses/${id}`, "GET", null);
     if (response.status === 200) {
       return response.json().then((data) => data);
     } else if (response.status === 401) {
