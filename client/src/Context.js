@@ -10,7 +10,7 @@ export class Provider extends Component {
   }
 
   render() {
-    // Initialize a var named value to an object containing a data property set to this.data
+    // Create a value object to provide the utility methods of the class Data
     const value = {
       data: this.data,
     };

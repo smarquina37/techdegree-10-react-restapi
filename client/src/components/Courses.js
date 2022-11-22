@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-export const Courses = () => {
+export const Courses = ({ context }) => {
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    // fetchApi();
+  }, []);
+
   return (
     <div className="wrap main--grid">
       <Link className="course--module course--link" href="course-detail.html">
