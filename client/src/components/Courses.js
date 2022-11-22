@@ -5,7 +5,11 @@ export const Courses = ({ context }) => {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    // fetchApi();
+    .getCourses()
+    .then((resp) => setCourses(resp.data))
+    .catch((error) => {
+      console.log("Error fetching and parsing data", error);
+    })
   }, []);
 
   return (
