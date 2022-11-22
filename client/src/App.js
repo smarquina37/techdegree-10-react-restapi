@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import axios from "axios";
+import apiBaseUrl from "./config";
 
 import Header from "./components/Header";
 import UserSignIn from "./components/UserSignIn";
@@ -18,7 +19,7 @@ const App = () => {
 
   const fetchApi = () => {
     axios
-      .get("http://localhost:5000/api/courses")
+      .get(apiBaseUrl)
       .then((resp) => {
         setData(resp.data);
       })
