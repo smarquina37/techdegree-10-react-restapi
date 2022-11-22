@@ -1,4 +1,4 @@
-import connectApiBaseUrl from "./config";
+import config from "./config";
 
 export default class Data {
   api(
@@ -8,7 +8,7 @@ export default class Data {
     requiresAuth = false,
     credentials = null
   ) {
-    const url = connectApiBaseUrl + path;
+    const url = config.apiBaseUrl + path;
 
     const options = {
       method,
@@ -53,20 +53,17 @@ export default class Data {
     const response = await this.api(`/courses`, "GET", null);
     if (response.status === 200) {
       return response.json().then((data) => data);
-    } else if (response.status === 401) {
-      return null;
     } else {
       throw new Error();
     }
   }
-  async getCourse() {
+  async getCourse(id) {
     const response = await this.api(`/courses/${id}`, "GET", null);
     if (response.status === 200) {
       return response.json().then((data) => data);
-    } else if (response.status === 401) {
-      return null;
     } else {
       throw new Error();
     }
   }
+  //Delete Course (id)
 }

@@ -8,9 +8,10 @@ import UserSignIn from "./components/UserSignIn";
 import UserSignUp from "./components/UserSignUp";
 import UserSignOut from "./components/UserSignOut";
 import Courses from "./components/Courses";
-// import CourseDetail from "./components/CourseDetail";
+import CourseDetail from "./components/CourseDetail";
 
 const CoursesWithContext = withContext(Courses);
+const CourseDetailWithContext = withContext(CourseDetail);
 
 const App = () => {
   return (
@@ -22,7 +23,7 @@ const App = () => {
         <Route path="/signup" element={<UserSignUp />} />
         <Route path="/signout" element={<UserSignOut />} />
         <Route path="/courses" element={<Courses />} />
-        {/* <Route path="/courses/:id" element={<CourseDetail />} /> */}
+        <Route path="/courses/:id" element={<CourseDetailWithContext />} />
       </Routes>
     </React.Fragment>
   );

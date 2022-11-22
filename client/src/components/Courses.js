@@ -5,8 +5,9 @@ export const Courses = ({ context }) => {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    .getCourses()
-      .then((resp) => setCourses(resp.data))
+    context.data
+      .getCourses()
+      .then((resp) => setCourses(resp))
       .catch((error) => {
         console.log("Error fetching and parsing data", error);
       });
@@ -14,14 +15,16 @@ export const Courses = ({ context }) => {
 
   return (
     <div className="wrap main--grid">
-      <Link className="course--module course--link" href="course-detail.html">
-        <h2 className="course--label">Course</h2>
-        <h3 className="course--title">Build a Basic Bookcase</h3>
-      </Link>
-      <Link
-        to="create-course.html"
-        className="course--module course--add--module"
-      >
+      {courses.map((course) => (
+        <Link
+          className="course--module course--link"
+          to={`/courses/${course.id}`}
+        >
+          <h2 className="course--label">Course</h2>
+          <h3 className="course--title">{course.title}</h3>
+        </Link>
+      ))}
+      <Link to="/api/courses" className="course--module course--add--module">
         <span className="course--add--title">
           <svg
             version="1.1"
