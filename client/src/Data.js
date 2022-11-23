@@ -72,19 +72,23 @@ export default class Data {
   async deleteCourse(id) {
     const response = await this.api(`/courses/${id}`, "DELETE");
     if (response.status === 200) {
-      return response.json().then((data) => data);
+      return response.json().then((data) => {
+        console.warn(data);
+      });
+    } else if (response.status === 401) {
+      return null;
     } else {
       throw new Error();
     }
   }
-  async UpdateCourse(id, data) {
+  async UpdateCourse(id) {
     const response = await this.api(`/courses/${id}`, "PUT", null);
-    if (response.status === 200) {
+    if (response.status === 204) {
       return response.json().then((data) => {
         console.warn(data);
       });
-      // } else if (response.status === 401) {
-      //   return null;
+    } else if (response.status === 401) {
+      return null;
     } else {
       throw new Error();
     }
