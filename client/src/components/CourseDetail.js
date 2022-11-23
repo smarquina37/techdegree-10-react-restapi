@@ -17,6 +17,13 @@ export const CourseDetail = ({ context }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleDelete = (id) => {
+    context.data.deleteCourse(id);
+    // setCourses(courses.filter((c) => c.id !== id));
+    // alert(id);
+  };
+
+  // onClick={(e) => {deleteCourse(course.id)}}
   return (
     <main>
       <div className="actions--bar">
@@ -24,7 +31,12 @@ export const CourseDetail = ({ context }) => {
           <Link className="button" to="update">
             Update Course
           </Link>
-          <Link className="button" to="#">
+          <Link
+            className="button"
+            onClick={() => {
+              handleDelete(course.id);
+            }}
+          >
             Delete Course
           </Link>
           <Link className="button button-secondary" to="/">
