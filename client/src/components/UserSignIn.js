@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const UserSignIn = ({ context }) => {
-  let navigate = useNavigate();
-  const [user, setUser] = useState({
+  // let navigate = useNavigate();
+  const [user, getUser] = useState({
     emailAddress: "",
     password: "",
   });
@@ -19,13 +19,14 @@ export const UserSignIn = ({ context }) => {
   // };
 
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: [e.target.value] });
+    getUser({ ...user, [e.target.name]: [e.target.value] });
   };
 
   const handleSubmit = (e) => {
     e.prevantDefault();
-    navigate("/");
-    e.currentTarget.reset();
+    console.log(user);
+    // navigate("/");
+    // e.currentTarget.reset();
   };
 
   return (
