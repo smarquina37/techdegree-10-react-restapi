@@ -7,9 +7,9 @@ export const Courses = ({ context }) => {
   useEffect(() => {
     context.data
       .getCourses()
-      .then((resp) => setCourses(resp))
-      .catch((error) => {
-        console.log("Error fetching and parsing data", error);
+      .then(setCourses)
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 

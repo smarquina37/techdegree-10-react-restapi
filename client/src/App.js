@@ -9,9 +9,15 @@ import UserSignUp from "./components/UserSignUp";
 import UserSignOut from "./components/UserSignOut";
 import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
+import UpdateCourse from "./components/UpdateCourse";
+import CreateCourse from "./components/CreateCourse";
 
+const UserSignInWithContext = withContext(UserSignIn);
+const UserSignUpWithContext = withContext(UserSignUp);
 const CoursesWithContext = withContext(Courses);
 const CourseDetailWithContext = withContext(CourseDetail);
+const UpdateCourseWithContext = withContext(UpdateCourse);
+const CreateCourseWithContext = withContext(CreateCourse);
 
 const App = () => {
   return (
@@ -19,33 +25,19 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<CoursesWithContext />} />
-        <Route path="/signin" element={<UserSignIn />} />
-        <Route path="/signup" element={<UserSignUp />} />
+        <Route path="/signin" element={<UserSignInWithContext />} />
+        <Route path="/signup" element={<UserSignUpWithContext />} />
         <Route path="/signout" element={<UserSignOut />} />
         <Route path="/courses" element={<Courses />} />
+        <Route
+          path="/courses/:id/update"
+          element={<UpdateCourseWithContext />}
+        />
         <Route path="/courses/:id" element={<CourseDetailWithContext />} />
+        <Route path="/courses/create" element={<CreateCourseWithContext />} />
       </Routes>
     </React.Fragment>
   );
 };
 
 export default App;
-
-// import axios from "axios";
-// import apiBaseUrl from "./config";
-//   const [data, setData] = useState([]);
-
-//   useEffect(() => {
-//     fetchApi();
-//   }, []);
-
-//   const fetchApi = () => {
-//     axios
-//       .get(apiBaseUrl)
-//       .then((resp) => {
-//         setData(resp.data);
-//       })
-//       .catch((error) => {
-//         console.log("Error fetching and parsing data", error);
-//       });
-//   };

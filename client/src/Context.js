@@ -13,14 +13,22 @@ export class Provider extends Component {
     // Create a value object to provide the utility methods of the class Data
     const value = {
       data: this.data,
+      actions: {
+        signIn: this.signIn,
+      },
     };
+
     // Pass context to the Provider
     return (
       <Context.Provider value={value}>{this.props.children}</Context.Provider>
     );
   }
 
-  signIn = async () => {};
+  // function that retrieves a registered user's credentials from the server
+  signIn = async (emailAddress, password) => {
+    const user = await this.data.getUser(emailAddress, password);
+    return user;
+  };
 
   signOut = () => {};
 }

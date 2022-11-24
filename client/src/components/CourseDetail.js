@@ -11,8 +11,8 @@ export const CourseDetail = ({ context }) => {
     context.data
       .getCourse(id)
       .then((resp) => setCourse(resp))
-      .catch((error) => {
-        console.log("Error fetching and parsing data", error);
+      .catch((err) => {
+        console.log(err);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -24,6 +24,7 @@ export const CourseDetail = ({ context }) => {
   };
 
   // onClick={(e) => {deleteCourse(course.id)}}
+
   return (
     <main>
       <div className="actions--bar">
@@ -51,7 +52,10 @@ export const CourseDetail = ({ context }) => {
             <div>
               <h3 className="course--detail--title">Course</h3>
               <h4 className="course--name">{course.title}</h4>
-              <p>By Jose</p>
+              <p>
+                By Jasmine
+                {/* By {course.firstName} {course.lastName} */}
+              </p>
               <ReactMarkdown children={course.description} />
             </div>
             <div>

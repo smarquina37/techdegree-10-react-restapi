@@ -1,6 +1,7 @@
 import config from "./config";
 import { UpdateCourse } from "./components/UpdateCourse";
 
+// Method used to make the GET, POST, DELETE, and PUT requests to the REST API
 export default class Data {
   api(
     path,
@@ -21,14 +22,22 @@ export default class Data {
     if (body !== null) {
       options.body = JSON.stringify(body);
     }
+    // Check if auth is required
     if (requiresAuth) {
+      const encodedCredentials = btoa(
+        `${credentials.emailAddress}:${credentials.password}`
+      );
+      options.headers["Authorization"] = `Basic ${encodedCredentials}`;
     }
 
     return fetch(url, options);
   }
   // GET User
-  async getUser() {
-    const response = await this.api(`/users`, "GET", null);
+  async getUser(emailAddress, password) {
+    const response = await this.api(`/users`, "GET", null, true, {
+      emailAddress,
+      password,
+    });
     if (response.status === 200) {
       return response.json().then((data) => data);
     } else if (response.status === 401) {
@@ -52,26 +61,26 @@ export default class Data {
   }
   // GET all courses
   async getCourses() {
-    const response = await this.api(`/courses`, "GET");
+    const response = await this.api(`/courses`, "GET", null);
     if (response.status === 200) {
       return response.json().then((data) => data);
     } else {
       throw new Error();
     }
   }
-  //GET a Course
+  // GET a Course
   async getCourse(id) {
-    const response = await this.api(`/courses/${id}`, "GET");
+    const response = await this.api(`/courses/${id}`, "GET", null);
     if (response.status === 200) {
       return response.json().then((data) => data);
     } else {
       throw new Error();
     }
   }
-  //DELETE a Course
+  // DELETE a Course
   async deleteCourse(id) {
     const response = await this.api(`/courses/${id}`, "DELETE");
-    if (response.status === 200) {
+    if (response.status === 204) {
       return response.json().then((data) => {
         console.warn(data);
       });
@@ -81,12 +90,11 @@ export default class Data {
       throw new Error();
     }
   }
+  // Update a Course
   async UpdateCourse(id) {
     const response = await this.api(`/courses/${id}`, "PUT", null);
     if (response.status === 204) {
-      return response.json().then((data) => {
-        console.warn(data);
-      });
+      return response.json().then((data) => data);
     } else if (response.status === 401) {
       return null;
     } else {
