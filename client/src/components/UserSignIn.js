@@ -10,10 +10,10 @@ export const UserSignIn = ({ context }) => {
 
   const navigate = useNavigate();
 
-  // const user = {
-  //   emailAddress,
-  //   password,
-  // };
+  const user = {
+    emailAddress,
+    password,
+  };
 
   const handleSubmit = (e) => {
     context.data.actions

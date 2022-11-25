@@ -1,5 +1,4 @@
 import config from "./config";
-import { UpdateCourse } from "./components/UpdateCourse";
 
 // Method used to make the GET, POST, DELETE, and PUT requests to the REST API
 export default class Data {

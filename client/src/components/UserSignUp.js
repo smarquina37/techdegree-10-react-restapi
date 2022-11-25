@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const UserSignUp = ({ context }) => {
@@ -15,6 +15,20 @@ const UserSignUp = ({ context }) => {
     emailAddress,
     password,
   };
+
+  //   const handleChange = (e) => {
+  //     e.preventDefault();
+  //     if (e.target.name === "firstName") {
+  //       setFirstName(value);
+  //     } else if (e.target.name === "lastName") {
+  //       setlastName(value);
+  //     } else if (e.target.name === "emailAddress") {
+  //       setEmailAddress(value);
+  //     } else {
+  //       return;
+  //     }
+  //   };
+  // };
 
   const handleSubmit = (e) => {
     context.data
@@ -49,15 +63,23 @@ const UserSignUp = ({ context }) => {
             name="firstName"
             type="text"
             value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
           />
           <label htmlFor="lastName">Last Name</label>
-          <input id="lastName" name="lastName" type="text" value={lastName} />
+          <input
+            id="lastName"
+            name="lastName"
+            type="text"
+            value={lastName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
           <label htmlFor="emailAddress">Email Address</label>
           <input
             id="emailAddress"
             name="emailAddress"
             type="email"
             value={emailAddress}
+            onChange={(e) => setFirstName(e.target.value)}
           />
           <label htmlFor="password">Password</label>
           <input
@@ -65,6 +87,7 @@ const UserSignUp = ({ context }) => {
             name="password"
             type="password"
             value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button className="button" type="submit">
             Sign Up
