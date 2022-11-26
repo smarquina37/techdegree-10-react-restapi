@@ -10,7 +10,7 @@ export const CourseDetail = ({ context }) => {
   useEffect(() => {
     context.data
       .getCourse(id)
-      .then((resp) => setCourse(resp))
+      .then((data) => setCourse(data))
       .catch((err) => {
         console.log(err);
       });

@@ -7,18 +7,20 @@ export const Courses = ({ context }) => {
   useEffect(() => {
     context.data
       .getCourses()
-      .then(setCourses)
+      .then((data) => setCourses(data))
       .catch((err) => {
         console.log(err);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="wrap main--grid">
-      {courses.map((course) => (
+      {courses.map((course, index) => (
         <Link
           className="course--module course--link"
           to={`/courses/${course.id}`}
+          key={index}
         >
           <h2 className="course--label">Course</h2>
           <h3 className="course--title">{course.title}</h3>

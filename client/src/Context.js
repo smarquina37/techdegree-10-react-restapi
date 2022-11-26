@@ -9,12 +9,19 @@ export class Provider extends Component {
     this.data = new Data();
   }
 
+  state = {
+    authenticatedUser: null,
+  };
+
   render() {
+    const { authenticatedUser } = this.state;
     // Create a value object to provide the utility methods of the class Data
     const value = {
+      authenticatedUser,
       data: this.data,
       actions: {
         signIn: this.signIn,
+        signOut: this.signOut,
       },
     };
 
@@ -27,10 +34,19 @@ export class Provider extends Component {
   // function that retrieves a registered user's credentials from the server
   signIn = async (emailAddress, password) => {
     const user = await this.data.getUser(emailAddress, password);
+    if (user !== null) {
+      this.setState(() => {
+        return {
+          authenticatedUser: user,
+        };
+      });
+    }
     return user;
   };
 
-  signOut = () => {};
+  signOut = () => {
+    this.setState({ authenticatedUser: null });
+  };
 }
 
 export const Consumer = Context.Consumer;

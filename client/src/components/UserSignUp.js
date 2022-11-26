@@ -8,30 +8,32 @@ const UserSignUp = ({ context }) => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const user = {
-    firstName,
-    lastName,
-    emailAddress,
-    password,
-  };
-
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    e.prevantDefault();
+    e.preventDefault();
     if (e.target.name === "firstName") {
-      setFirstName(value);
+      setFirstName(e.target.value);
     } else if (e.target.name === "lastName") {
-      setLastName(value);
+      setLastName(e.target.value);
     } else if (e.target.name === "emailAddress") {
-      setEmailAddress(value);
+      setEmailAddress(e.target.value);
+    } else if (e.target.name === "password") {
+      setPassword(e.target.value);
     } else {
       return;
     }
   };
 
   const handleSubmit = (e) => {
-    e.prevantDefault();
+    e.preventDefault();
+    const user = {
+      firstName,
+      lastName,
+      emailAddress,
+      password,
+      errors,
+    };
 
     context.data
       .createUser(user)
@@ -40,7 +42,7 @@ const UserSignUp = ({ context }) => {
           setErrors(errors);
         } else {
           context.actions.signIn(emailAddress, password).then(() => {
-            navigate("/authenticated");
+            navigate("/");
           });
         }
       })
@@ -50,10 +52,24 @@ const UserSignUp = ({ context }) => {
       });
   };
 
-  return (
-    <div class="form--centered">
-      <h2>Sign Up</h2>
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate("/");
+  };
 
+  return (
+    <div className="form--centered">
+      <h2>Sign Up</h2>
+      {errors && errors.length ? (
+        <div className="validation--errors">
+          <h3>Validation Errors</h3>
+          <ul>
+            {errors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name</label>
         <input
@@ -87,13 +103,10 @@ const UserSignUp = ({ context }) => {
           value={password}
           onChange={handleChange}
         />
-        <button class="button" type="submit">
+        <button className="button" type="submit">
           Sign Up
         </button>
-        <button
-          class="button button-secondary"
-          onclick="event.preventDefault(); location.href='index.html';"
-        >
+        <button className="button button-secondary" onClick={handleCancel}>
           Cancel
         </button>
       </form>
