@@ -28,7 +28,7 @@ const UserSignIn = ({ context }) => {
     };
 
     context.actions
-      .signIn(user)
+      .signIn(emailAddress, password)
       .then((user) => {
         if (user === null) {
           setErrors(() => {
@@ -53,7 +53,14 @@ const UserSignIn = ({ context }) => {
     <div className="form--centered">
       <h2>Sign In</h2>
       {errors && errors.length ? (
-        <div className="validation--errors">{errors}</div>
+        <div className="validation--errors">
+          <h3>Validation Errors</h3>
+          <ul>
+            {errors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+        </div>
       ) : null}
       <form onSubmit={handleSubmit}>
         <label htmlFor="emailAddress">Email Address</label>
