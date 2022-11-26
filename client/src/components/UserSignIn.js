@@ -52,10 +52,10 @@ const UserSignIn = ({ context }) => {
   return (
     <div className="form--centered">
       <h2>Sign In</h2>
-      {/* {errors && errors.length ? (
+      {errors && errors.length ? (
         <div className="validation--errors">{errors}</div>
-      ) : null} */}
-      <form onSubmit={handleSubmit} errors={errors}>
+      ) : null}
+      <form onSubmit={handleSubmit}>
         <label htmlFor="emailAddress">Email Address</label>
         <input
           id="emailAddress"
