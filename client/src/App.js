@@ -31,14 +31,14 @@ const App = () => {
         <Route path="/signin" element={<UserSignInWithContext />} />
         <Route path="/signup" element={<UserSignUpWithContext />} />
         <Route path="/signout" element={<UserSignOutWithContext />} />
-        <Route path="/courses" element={<Courses />} />
+        <Route path="/courses" element={<CoursesWithContext />} />
         <Route
           path="/courses/:id/update"
           element={<UpdateCourseWithContext />}
         />
         <Route path="/courses/:id" element={<CourseDetailWithContext />} />
         <Route path="/courses/create" element={<CreateCourseWithContext />} />
-        <Route component={NotFound} />
+        <Route element={NotFound} />
       </Routes>
     </React.Fragment>
   );

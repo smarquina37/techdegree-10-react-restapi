@@ -76,13 +76,30 @@ export default class Data {
       throw new Error();
     }
   }
-  // DELETE a Course
-  async deleteCourse(id) {
-    const response = await this.api(`/courses/${id}`, "DELETE");
-    if (response.status === 204) {
+  // Create Course
+  async createCourse(body, emailAddress, password) {
+    const response = await this.api("/courses/create", "POST", body, true, {
+      emailAddress,
+      password,
+    });
+    if (response.status === 201) {
+      return [];
+    } else if (response.status === 400) {
       return response.json().then((data) => {
-        console.warn(data);
+        return data.errors;
       });
+    } else {
+      throw new Error();
+    }
+  }
+  // DELETE a Course
+  async deleteCourse(id, emailAddress, password) {
+    const response = await this.api(`/courses/${id}`, "DELETE", null, true, {
+      emailAddress,
+      password,
+    });
+    if (response.status === 204) {
+      return response.json().then((data) => data);
     } else if (response.status === 401) {
       return null;
     } else {

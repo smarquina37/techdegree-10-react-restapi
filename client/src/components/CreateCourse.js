@@ -1,50 +1,123 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const CreateCourse = () => {
+const CreateCourse = ({ context }) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [estimatedTime, seteEtimatedTime] = useState("");
+  const [materialsNeeded, setMaterialsNeeded] = useState("");
+  const [errors, setErrors] = useState([]);
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    e.preventDefault();
+
+    const name = e.target.name;
+    const value = e.target.value;
+
+    if (name === "courseTitle") {
+      setTitle(value);
+    } else if (name === "courseDescription") {
+      setDescription(value);
+    } else if (name === "estimatedTime") {
+      seteEtimatedTime(value);
+    } else if (name === "materialsNeeded") {
+      setMaterialsNeeded(value);
+    } else {
+      return;
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const body = {
+      title,
+      description,
+      estimatedTime,
+      materialsNeeded,
+      errors,
+    };
+
+    context.data
+      .CreateCourse(body)
+      .then((errors) => {
+        if (errors.length) {
+          setErrors(errors);
+        } else {
+          navigate("/");
+        }
+      })
+      .catch((errors) => {
+        console.error(errors);
+        navigate("/error");
+      });
+  };
+
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate("/");
+  };
+
   return (
-    <div class="wrap">
+    <div className="wrap">
       <h2>Create Course</h2>
-      <div class="validation--errors">
-        <h3>Validation Errors</h3>
-        <ul>
-          <li>Please provide a value for "Title"</li>
-          <li>Please provide a value for "Description"</li>
-        </ul>
-      </div>
-      <form>
-        <div class="main--flex">
+      {errors && errors.length ? (
+        <div className="validation--errors">
+          <h3>Validation Errors</h3>
+          <ul>
+            {errors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+      <form onSubmit={handleSubmit}>
+        <div className="main--flex">
           <div>
-            <label for="courseTitle">Course Title</label>
-            <input id="courseTitle" name="courseTitle" type="text" value="" />
+            <label htmlFor="courseTitle">Course Title</label>
+            <input
+              id="courseTitle"
+              name="courseTitle"
+              type="text"
+              value={title}
+              onChange={handleChange}
+            />
 
             <p>By Joe Smith</p>
 
-            <label for="courseDescription">Course Description</label>
+            <label htmlFor="courseDescription">Course Description</label>
             <textarea
               id="courseDescription"
               name="courseDescription"
+              value={description}
+              onChange={handleChange}
             ></textarea>
           </div>
           <div>
-            <label for="estimatedTime">Estimated Time</label>
+            <label htmlFor="estimatedTime">Estimated Time</label>
             <input
               id="estimatedTime"
               name="estimatedTime"
               type="text"
-              value=""
+              value={estimatedTime}
+              onChange={handleChange}
             />
 
-            <label for="materialsNeeded">Materials Needed</label>
-            <textarea id="materialsNeeded" name="materialsNeeded"></textarea>
+            <label htmlFor="materialsNeeded">Materials Needed</label>
+            <textarea
+              id="materialsNeeded"
+              name="materialsNeeded"
+              value={materialsNeeded}
+              onChange={handleChange}
+            ></textarea>
           </div>
         </div>
-        <button class="button" type="submit">
+        <button className="button" type="submit">
           Create Course
         </button>
-        <button
-          class="button button-secondary"
-          onclick="event.preventDefault(); location.href='index.html';"
-        >
+        <button className="button button-secondary" onClick={handleCancel}>
           Cancel
         </button>
       </form>

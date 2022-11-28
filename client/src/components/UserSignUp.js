@@ -12,14 +12,18 @@ const UserSignUp = ({ context }) => {
 
   const handleChange = (e) => {
     e.preventDefault();
-    if (e.target.name === "firstName") {
+
+    const name = e.target.name;
+    const value = e.target.value;
+
+    if (name === "firstName") {
       setFirstName(e.target.value);
-    } else if (e.target.name === "lastName") {
-      setLastName(e.target.value);
-    } else if (e.target.name === "emailAddress") {
-      setEmailAddress(e.target.value);
-    } else if (e.target.name === "password") {
-      setPassword(e.target.value);
+    } else if (name === "lastName") {
+      setLastName(value);
+    } else if (name === "emailAddress") {
+      setEmailAddress(value);
+    } else if (name === "password") {
+      setPassword(value);
     } else {
       return;
     }
@@ -46,8 +50,8 @@ const UserSignUp = ({ context }) => {
           });
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((errors) => {
+        console.log(errors);
         navigate("/error");
       });
   };

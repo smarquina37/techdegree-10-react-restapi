@@ -26,7 +26,7 @@ export const Courses = ({ context }) => {
           <h3 className="course--title">{course.title}</h3>
         </Link>
       ))}
-      <Link to="/api/courses" className="course--module course--add--module">
+      <Link to="/courses/create" className="course--module course--add--module">
         <span className="course--add--title">
           <svg
             version="1.1"

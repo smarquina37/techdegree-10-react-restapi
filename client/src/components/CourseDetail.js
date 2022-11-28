@@ -4,13 +4,13 @@ import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
 export const CourseDetail = ({ context }) => {
-  const [course, setCourse] = useState([]);
+  const [courses, setCourses] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
     context.data
       .getCourse(id)
-      .then((data) => setCourse(data))
+      .then((data) => setCourses(data))
       .catch((err) => {
         console.log(err);
       });
@@ -18,12 +18,13 @@ export const CourseDetail = ({ context }) => {
   }, []);
 
   const handleDelete = (id) => {
-    context.data.deleteCourse(id);
-    // setCourses(courses.filter((c) => c.id !== id));
-    // alert(id);
+    context.data.deleteCourse(
+      id,
+      context.authenticatedUser.emailAddress,
+      context.authenticatedUser.password
+    );
+    setCourses(courses.filter((course) => course.id !== id));
   };
-
-  // onClick={(e) => {deleteCourse(course.id)}}
 
   return (
     <main>
@@ -32,12 +33,7 @@ export const CourseDetail = ({ context }) => {
           <Link className="button" to="update">
             Update Course
           </Link>
-          <Link
-            className="button"
-            onClick={() => {
-              handleDelete(course.id);
-            }}
-          >
+          <Link className="button" onClick={handleDelete}>
             Delete Course
           </Link>
           <Link className="button button-secondary" to="/">
@@ -51,20 +47,20 @@ export const CourseDetail = ({ context }) => {
           <div className="main--flex">
             <div>
               <h3 className="course--detail--title">Course</h3>
-              <h4 className="course--name">{course.title}</h4>
+              <h4 className="course--name">{courses.title}</h4>
               <p>
                 By Jasmine
                 {/* By {course.firstName} {course.lastName} */}
               </p>
-              <ReactMarkdown children={course.description} />
+              <ReactMarkdown children={courses.description} />
             </div>
             <div>
               <h3 className="course--detail--title">Estimated Time</h3>
-              <p>{course.estimatedTime}</p>
+              <p>{courses.estimatedTime}</p>
 
               <h3 className="course--detail--title">Materials Needed</h3>
               <ul className="course--detail--list">
-                <ReactMarkdown children={course.materialsNeeded} />
+                <ReactMarkdown children={courses.materialsNeeded} />
               </ul>
             </div>
           </div>

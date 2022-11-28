@@ -10,10 +10,14 @@ const UserSignIn = ({ context }) => {
 
   const handleChange = (e) => {
     e.preventDefault();
-    if (e.target.name === "emailAddress") {
-      setEmailAddress(e.target.value);
-    } else if (e.target.name === "password") {
-      setPassword(e.target.value);
+
+    const name = e.target.name;
+    const value = e.target.value;
+
+    if (name === "emailAddress") {
+      setEmailAddress(value);
+    } else if (name === "password") {
+      setPassword(value);
     } else {
       return;
     }
@@ -21,25 +25,25 @@ const UserSignIn = ({ context }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const user = {
-      emailAddress,
-      password,
-      errors,
-    };
+    // const user = {
+    //   emailAddress,
+    //   password,
+    //   errors,
+    // };
 
     context.actions
       .signIn(emailAddress, password)
       .then((user) => {
         if (user === null) {
           setErrors(() => {
-            return { errors: ["Sign-in was unsuccessful"] };
+            return ["Sign-in was unsuccessful"];
           });
         } else {
           navigate("/");
         }
       })
-      .catch((err) => {
-        console.error(err);
+      .catch((errors) => {
+        console.error(errors);
         navigate("/error");
       });
   };
