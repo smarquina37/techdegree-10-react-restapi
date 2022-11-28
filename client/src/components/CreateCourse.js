@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const CreateCourse = ({ context }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [estimatedTime, seteEtimatedTime] = useState("");
+  const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setMaterialsNeeded] = useState("");
   const [errors, setErrors] = useState([]);
 
@@ -21,7 +21,7 @@ const CreateCourse = ({ context }) => {
     } else if (name === "courseDescription") {
       setDescription(value);
     } else if (name === "estimatedTime") {
-      seteEtimatedTime(value);
+      setEstimatedTime(value);
     } else if (name === "materialsNeeded") {
       setMaterialsNeeded(value);
     } else {

@@ -107,7 +107,7 @@ export default class Data {
     }
   }
   // Update a Course
-  async UpdateCourse(id) {
+  async updateCourse(id) {
     const response = await this.api(`/courses/${id}`, "PUT", null);
     if (response.status === 204) {
       return response.json().then((data) => data);
