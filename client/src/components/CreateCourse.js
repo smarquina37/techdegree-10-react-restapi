@@ -40,7 +40,7 @@ const CreateCourse = ({ context }) => {
     };
 
     context.data
-      .createCourse(body)
+      .createCourse(body, emailAddress, password)
       .then((errors) => {
         if (errors.length) {
           setErrors(errors);
