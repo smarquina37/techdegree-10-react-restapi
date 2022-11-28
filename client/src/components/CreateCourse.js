@@ -31,7 +31,6 @@ const CreateCourse = ({ context }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const body = {
       title,
       description,
@@ -41,7 +40,7 @@ const CreateCourse = ({ context }) => {
     };
 
     context.data
-      .CreateCourse(body)
+      .createCourse(body)
       .then((errors) => {
         if (errors.length) {
           setErrors(errors);
@@ -51,7 +50,6 @@ const CreateCourse = ({ context }) => {
       })
       .catch((errors) => {
         console.error(errors);
-        navigate("/error");
       });
   };
 

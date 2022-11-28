@@ -25,7 +25,7 @@ const UserSignIn = ({ context }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const user = {
+    // let user = {
     //   emailAddress,
     //   password,
     //   errors,
@@ -44,7 +44,6 @@ const UserSignIn = ({ context }) => {
       })
       .catch((errors) => {
         console.error(errors);
-        navigate("/error");
       });
   };
 

@@ -49,8 +49,8 @@ export const CourseDetail = ({ context }) => {
               <h3 className="course--detail--title">Course</h3>
               <h4 className="course--name">{courses.title}</h4>
               <p>
-                By Jasmine
-                {/* By {course.firstName} {course.lastName} */}
+                {/* By Jasmine */}
+                By {courses.firstName} {courses.lastName}
               </p>
               <ReactMarkdown children={courses.description} />
             </div>
