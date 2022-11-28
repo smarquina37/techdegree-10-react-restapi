@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 
 export const CourseDetail = ({ context }) => {
   const [courses, setCourses] = useState([]);
+  const [errors, setErrors] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -25,12 +26,18 @@ export const CourseDetail = ({ context }) => {
         context.authenticatedUser.emailAddress,
         context.authenticatedUser.password
       )
-      .then((resp) => {
-        navigate("/");
+      .then((errors) => {
+        if (errors.length) {
+          setErrors(errors);
+        } else {
+          navigate("/");
+        }
+      })
+      .catch((errors) => {
+        console.error(errors);
       });
   };
 
-  console.log(context.authenticatedUser);
   return (
     <main>
       <div className="actions--bar">
