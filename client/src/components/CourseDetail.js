@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
 export const CourseDetail = ({ context }) => {
   const [courses, setCourses] = useState([]);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     context.data
@@ -17,15 +17,20 @@ export const CourseDetail = ({ context }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleDelete = (id) => {
-    context.data.deleteCourse(
-      id,
-      context.authenticatedUser.emailAddress,
-      context.authenticatedUser.password
-    );
-    setCourses(courses.filter((course) => course.id !== id));
+  const handleDelete = (e) => {
+    e.preventDefault();
+    context.data
+      .deleteCourse(
+        id,
+        context.authenticatedUser.emailAddress,
+        context.authenticatedUser.password
+      )
+      .then((resp) => {
+        navigate("/");
+      });
   };
 
+  console.log(context.authenticatedUser);
   return (
     <main>
       <div className="actions--bar">
@@ -49,8 +54,7 @@ export const CourseDetail = ({ context }) => {
               <h3 className="course--detail--title">Course</h3>
               <h4 className="course--name">{courses.title}</h4>
               <p>
-                {/* By Jasmine */}
-                By {courses.firstName} {courses.lastName}
+                By {courses.user?.firstName} {courses.user?.lastName}
               </p>
               <ReactMarkdown children={courses.description} />
             </div>

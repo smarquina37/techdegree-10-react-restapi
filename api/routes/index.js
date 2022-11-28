@@ -99,15 +99,9 @@ router.post(
   authenticateUser,
   asyncHandler(async (req, res) => {
     try {
-      if (req.currentUser) {
-        const course = await Course.create(req.body);
-        res.location("/courses/" + `${course.id}`);
-        res.status(201).end();
-      } else {
-        res
-          .status(401)
-          .json({ message: "You don't have access to update this course" });
-      }
+      const course = await Course.create(req.body);
+      res.location("/courses/" + `${course.id}`);
+      res.status(201).end();
     } catch (error) {
       console.log("ERORR: ", error.name);
 

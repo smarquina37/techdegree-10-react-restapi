@@ -34,7 +34,10 @@ export class Provider extends Component {
   // function that retrieves a registered user's credentials from the server
   signIn = async (emailAddress, password) => {
     const user = await this.data.getUser(emailAddress, password);
+    const plainText = password;
+
     if (user !== null) {
+      user.password = plainText;
       this.setState(() => {
         return {
           authenticatedUser: user,

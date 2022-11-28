@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const CreateCourse = ({ context }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [estimatedTime, setEstimatedTime] = useState("");
+  const [estimatedTime, seteEtimatedTime] = useState("");
   const [materialsNeeded, setMaterialsNeeded] = useState("");
   const [errors, setErrors] = useState([]);
 
@@ -21,7 +21,7 @@ const CreateCourse = ({ context }) => {
     } else if (name === "courseDescription") {
       setDescription(value);
     } else if (name === "estimatedTime") {
-      setEstimatedTime(value);
+      seteEtimatedTime(value);
     } else if (name === "materialsNeeded") {
       setMaterialsNeeded(value);
     } else {
@@ -32,6 +32,7 @@ const CreateCourse = ({ context }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const body = {
+      userId: context.authenticatedUser.id,
       title,
       description,
       estimatedTime,
@@ -40,7 +41,11 @@ const CreateCourse = ({ context }) => {
     };
 
     context.data
-      .createCourse(body, emailAddress, password)
+      .createCourse(
+        body,
+        context.authenticatedUser.emailAddress,
+        context.authenticatedUser.password
+      )
       .then((errors) => {
         if (errors.length) {
           setErrors(errors);

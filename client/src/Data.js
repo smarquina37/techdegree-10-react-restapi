@@ -99,7 +99,7 @@ export default class Data {
       password,
     });
     if (response.status === 204) {
-      return response.json().then((data) => data);
+      return [];
     } else if (response.status === 401) {
       return null;
     } else {
