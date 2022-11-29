@@ -79,7 +79,7 @@ const UpdateCourse = ({ context }) => {
 
   const handleCancel = (e) => {
     e.preventDefault();
-    navigate("/");
+    navigate(`/courses/${id}`);
   };
 
   return (
