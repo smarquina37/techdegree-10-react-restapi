@@ -5,7 +5,7 @@ const UpdateCourse = ({ context }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [course, setCourse] = useState("");
+  const [course, setCourse] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
@@ -15,7 +15,13 @@ const UpdateCourse = ({ context }) => {
   useEffect(() => {
     context.data
       .getCourse(id)
-      .then((data) => setCourse(data))
+      .then((data) => {
+        setCourse(data);
+        setTitle(data.title);
+        setDescription(data.description);
+        setEstimatedTime(data.estimatedTime);
+        setMaterialsNeeded(data.materialsNeeded);
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -24,7 +30,6 @@ const UpdateCourse = ({ context }) => {
 
   const handleChange = (e) => {
     e.preventDefault();
-
     const name = e.target.name;
     const value = e.target.value;
 
@@ -41,19 +46,20 @@ const UpdateCourse = ({ context }) => {
     }
   };
 
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
 
     const body = {
-      id,
       title,
       description,
       estimatedTime,
       materialsNeeded,
     };
+    console.log(body);
 
-    context.data
+    await context.data
       .updateCourse(
+        id,
         body,
         context.authenticatedUser.emailAddress,
         context.authenticatedUser.password
@@ -69,6 +75,7 @@ const UpdateCourse = ({ context }) => {
         console.error(err);
       });
   };
+
   const handleCancel = (e) => {
     e.preventDefault();
     navigate("/");
@@ -95,7 +102,7 @@ const UpdateCourse = ({ context }) => {
               id="courseTitle"
               name="courseTitle"
               type="text"
-              defaultValue={course.title}
+              value={title}
               onChange={handleChange}
             />
 
@@ -105,7 +112,7 @@ const UpdateCourse = ({ context }) => {
             <textarea
               id="courseDescription"
               name="courseDescription"
-              defaultValue={course.description}
+              value={description}
               onChange={handleChange}
             ></textarea>
           </div>
@@ -115,7 +122,7 @@ const UpdateCourse = ({ context }) => {
               id="estimatedTime"
               name="estimatedTime"
               type="text"
-              defaultValue={course.estimatedTime}
+              value={estimatedTime}
               onChange={handleChange}
             />
 
@@ -123,7 +130,7 @@ const UpdateCourse = ({ context }) => {
             <textarea
               id="materialsNeeded"
               name="materialsNeeded"
-              defaultValue={course.materialsNeeded}
+              value={materialsNeeded}
               onChange={handleChange}
             ></textarea>
           </div>

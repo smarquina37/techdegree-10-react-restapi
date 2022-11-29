@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
 export const CourseDetail = ({ context }) => {
-  const [courses, setCourses] = useState([]);
+  const [course, setCourse] = useState([]);
   const [errors, setErrors] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -11,16 +11,17 @@ export const CourseDetail = ({ context }) => {
   useEffect(() => {
     context.data
       .getCourse(id)
-      .then((data) => setCourses(data))
+      .then((data) => setCourse(data))
       .catch((err) => {
         console.log(err);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleDelete = (e) => {
+  const handleDelete = async (e) => {
     e.preventDefault();
-    context.data
+
+    await context.data
       .deleteCourse(
         id,
         context.authenticatedUser.emailAddress,
@@ -59,19 +60,19 @@ export const CourseDetail = ({ context }) => {
           <div className="main--flex">
             <div>
               <h3 className="course--detail--title">Course</h3>
-              <h4 className="course--name">{courses.title}</h4>
+              <h4 className="course--name">{course.title}</h4>
               <p>
-                By {courses.user?.firstName} {courses.user?.lastName}
+                By {course.user?.firstName} {course.user?.lastName}
               </p>
-              <ReactMarkdown children={courses.description} />
+              <ReactMarkdown children={course.description} />
             </div>
             <div>
               <h3 className="course--detail--title">Estimated Time</h3>
-              <p>{courses.estimatedTime}</p>
+              <p>{course.estimatedTime}</p>
 
               <h3 className="course--detail--title">Materials Needed</h3>
               <ul className="course--detail--list">
-                <ReactMarkdown children={courses.materialsNeeded} />
+                <ReactMarkdown children={course.materialsNeeded} />
               </ul>
             </div>
           </div>
