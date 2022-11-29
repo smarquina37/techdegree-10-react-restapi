@@ -42,17 +42,26 @@ export const CourseDetail = ({ context }) => {
   return (
     <main>
       <div className="actions--bar">
-        <div className="wrap">
-          <Link className="button" to="update">
-            Update Course
-          </Link>
-          <Link className="button" onClick={handleDelete}>
-            Delete Course
-          </Link>
-          <Link className="button button-secondary" to="/">
-            Return to List
-          </Link>
-        </div>
+        {context.authenticatedUser &&
+        context.authenticatedUser.id === course.user?.id ? (
+          <div className="wrap">
+            <Link className="button" to="update">
+              Update Course
+            </Link>
+            <Link className="button" onClick={handleDelete}>
+              Delete Course
+            </Link>
+            <Link className="button button-secondary" to="/">
+              Return to List
+            </Link>
+          </div>
+        ) : (
+          <div className="wrap">
+            <Link className="button button-secondary" to="/">
+              Return to List
+            </Link>
+          </div>
+        )}
       </div>
       <div className="wrap">
         <form>
