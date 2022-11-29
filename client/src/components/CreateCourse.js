@@ -46,7 +46,6 @@ const CreateCourse = ({ context }) => {
         context.authenticatedUser.password
       )
       .then((errors) => {
-        console.log(typeof errors);
         if (errors.length) {
           setErrors(errors);
         } else {

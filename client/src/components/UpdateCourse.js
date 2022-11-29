@@ -45,6 +45,7 @@ const UpdateCourse = ({ context }) => {
     e.preventDefault();
 
     const body = {
+      id,
       title,
       description,
       estimatedTime,
@@ -58,17 +59,8 @@ const UpdateCourse = ({ context }) => {
         context.authenticatedUser.password
       )
       .then((errors) => {
-        if (errors.length !== 0) {
-          setErrors(
-            <div className="validation--errors">
-              <h3>Validation Errors</h3>
-              <ul>
-                {errors.map((error, index) => (
-                  <li key={index}>{error}</li>
-                ))}
-              </ul>
-            </div>
-          );
+        if (errors.length) {
+          setErrors(errors);
         } else {
           navigate("/");
         }
@@ -77,7 +69,6 @@ const UpdateCourse = ({ context }) => {
         console.error(err);
       });
   };
-
   const handleCancel = (e) => {
     e.preventDefault();
     navigate("/");
@@ -86,7 +77,16 @@ const UpdateCourse = ({ context }) => {
   return (
     <div className="wrap">
       <h2>Update Course</h2>
-      {errors}
+      {errors && errors.length ? (
+        <div className="validation--errors">
+          <h3>Validation Errors</h3>
+          <ul>
+            {errors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
       <form onSubmit={handleUpdate}>
         <div className="main--flex">
           <div>
