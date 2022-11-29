@@ -29,8 +29,9 @@ const CreateCourse = ({ context }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const body = {
       userId: context.authenticatedUser.id,
       title,
@@ -39,7 +40,7 @@ const CreateCourse = ({ context }) => {
       materialsNeeded,
     };
 
-    context.data
+    await context.data
       .createCourse(
         body,
         context.authenticatedUser.emailAddress,
