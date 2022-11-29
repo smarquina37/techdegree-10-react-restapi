@@ -12,7 +12,7 @@ import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
 import UpdateCourse from "./components/UpdateCourse";
 import CreateCourse from "./components/CreateCourse";
-import PrivateRoutes from "./components/PrivateRoutes";
+import PrivateRoutes from "./PrivateRoutes";
 
 const HeaderWithContext = withContext(Header);
 const UserSignInWithContext = withContext(UserSignIn);
@@ -22,13 +22,14 @@ const CoursesWithContext = withContext(Courses);
 const CourseDetailWithContext = withContext(CourseDetail);
 const UpdateCourseWithContext = withContext(UpdateCourse);
 const CreateCourseWithContext = withContext(CreateCourse);
+const PrivateRoutesWithContext = withContext(PrivateRoutes);
 
 const App = () => {
   return (
     <React.Fragment>
       <HeaderWithContext />
       <Routes>
-        <Route element={<PrivateRoutes />}>
+        <Route element={<PrivateRoutesWithContext />}>
           <Route
             path="/courses/:id/update"
             element={<UpdateCourseWithContext />}
@@ -41,7 +42,7 @@ const App = () => {
         <Route path="/signout" element={<UserSignOutWithContext />} />
         <Route path="/courses" element={<CoursesWithContext />} />
         <Route path="/courses/:id" element={<CourseDetailWithContext />} />
-        <Route element={NotFound} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </React.Fragment>
   );

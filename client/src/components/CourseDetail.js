@@ -36,6 +36,7 @@ export const CourseDetail = ({ context }) => {
       })
       .catch((errors) => {
         console.error(errors);
+        navigate("/error");
       });
   };
 

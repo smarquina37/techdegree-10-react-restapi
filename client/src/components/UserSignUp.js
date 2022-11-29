@@ -52,6 +52,7 @@ const UserSignUp = ({ context }) => {
       })
       .catch((errors) => {
         console.log(errors);
+        navigate("/error");
       });
   };
 

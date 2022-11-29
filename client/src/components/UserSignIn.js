@@ -44,6 +44,7 @@ const UserSignIn = ({ context }) => {
       })
       .catch((errors) => {
         console.error(errors);
+        navigate("/error");
       });
   };
 

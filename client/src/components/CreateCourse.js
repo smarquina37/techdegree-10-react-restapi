@@ -55,6 +55,7 @@ const CreateCourse = ({ context }) => {
       })
       .catch((err) => {
         console.error(err);
+        navigate("/error");
       });
   };
 
@@ -88,7 +89,10 @@ const CreateCourse = ({ context }) => {
               onChange={handleChange}
             />
 
-            <p>By Joe Smith</p>
+            <p>
+              By {context.authenticatedUser.firstName}{" "}
+              {context.authenticatedUser.lastName}
+            </p>
 
             <label htmlFor="courseDescription">Course Description</label>
             <textarea
