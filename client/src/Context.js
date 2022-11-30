@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Data from "./Data";
+import Cookies from "js-cookie";
 
 const Context = React.createContext();
 
@@ -7,6 +8,11 @@ export class Provider extends Component {
   constructor() {
     super();
     this.data = new Data();
+
+    this.cookie = Cookies.get("authenticatedUser");
+    this.state = {
+      authenticatedUser: this.cookie ? JSON.parse(this.cookie) : null,
+    };
   }
 
   state = {
@@ -43,6 +49,7 @@ export class Provider extends Component {
           authenticatedUser: user,
         };
       });
+      Cookies.set("authenticatedUser", JSON.stringify(user), { expires: 1 });
     }
     return user;
   };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const UserSignIn = ({ context }) => {
   const [emailAddress, setEmailAddress] = useState("");
@@ -7,6 +7,8 @@ const UserSignIn = ({ context }) => {
   const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/";
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ const UserSignIn = ({ context }) => {
             return ["Sign-in was unsuccessful"];
           });
         } else {
-          navigate("/");
+          navigate(from, { replace: true });
         }
       })
       .catch((errors) => {
