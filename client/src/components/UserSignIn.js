@@ -27,11 +27,6 @@ const UserSignIn = ({ context }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // let user = {
-    //   emailAddress,
-    //   password,
-    //   errors,
-    // };
 
     context.actions
       .signIn(emailAddress, password)
