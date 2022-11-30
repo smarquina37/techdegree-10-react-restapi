@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 
 export const CourseDetail = ({ context }) => {
   const [course, setCourse] = useState([]);
-  const [errors, setErrors] = useState([]);
+  const [setErrors] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 

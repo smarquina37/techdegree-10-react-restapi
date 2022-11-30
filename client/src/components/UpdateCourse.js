@@ -5,7 +5,7 @@ const UpdateCourse = ({ context }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [course, setCourse] = useState([]);
+  const [setCourse] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
