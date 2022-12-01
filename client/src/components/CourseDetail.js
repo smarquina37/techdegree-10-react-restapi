@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
+// This component provides the "Course Detail" screen by retrieving the detail for a course
+//  from the REST API's /api/courses/:id route and rendering the course.
 export const CourseDetail = ({ context }) => {
+  // useState is a Hook that lets you add React state to function components
   const [course, setCourse] = useState([]);
   const [setErrors] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
+  // useEffect Hook allows you to perform side effects (fetching data) in your components
   useEffect(() => {
     context.data
       .getCourse(id)
@@ -18,6 +22,8 @@ export const CourseDetail = ({ context }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Button that when clicked sends a DELETE request to the REST API's /api/courses/:id route
+  // in order to delete a course
   const handleDelete = async (e) => {
     e.preventDefault();
 
@@ -43,6 +49,8 @@ export const CourseDetail = ({ context }) => {
   return (
     <main>
       <div className="actions--bar">
+        {/* logic so that "Update Course" and "Delete Course" buttons only display if authenticated user 
+        and authenticated user's ID matches that of the user who owns the course*/}
         {context.authenticatedUser &&
         context.authenticatedUser.id === course.user?.id ? (
           <div className="wrap">

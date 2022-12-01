@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+// This component provides the "Courses" screen by retrieving the list of courses from
+// the REST API's /api/courses route and rendering a list of courses
 export const Courses = ({ context }) => {
+  // useState is a Hook that lets you add React state to function components
   const [courses, setCourses] = useState([]);
 
+  // useEffect Hook allows you to perform side effects (fetching data) in your components
   useEffect(() => {
     context.data
       .getCourses()

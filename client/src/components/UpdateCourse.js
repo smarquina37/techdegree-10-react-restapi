@@ -5,6 +5,7 @@ const UpdateCourse = ({ context }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  // useState is a Hook that lets you add React state to function components
   const [setCourse] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -12,6 +13,7 @@ const UpdateCourse = ({ context }) => {
   const [materialsNeeded, setMaterialsNeeded] = useState("");
   const [errors, setErrors] = useState([]);
 
+  // useEffect Hook allows you to perform side effects (fetching data) in your components
   useEffect(() => {
     context.data
       .getCourse(id)
@@ -28,6 +30,9 @@ const UpdateCourse = ({ context }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Function created to handle input change
+  // event.target.name value reflects the name attribute that you specified in your <input> element
+  // event.target.value property will reflect the latest value from the <input> element
   const handleChange = (e) => {
     e.preventDefault();
     const name = e.target.name;
@@ -46,6 +51,7 @@ const UpdateCourse = ({ context }) => {
     }
   };
 
+  // This function will update the form data if form validation is successful.
   const handleUpdate = async (e) => {
     e.preventDefault();
 
@@ -55,8 +61,9 @@ const UpdateCourse = ({ context }) => {
       estimatedTime,
       materialsNeeded,
     };
-    console.log(body);
 
+    // Call the updateCourse() method with context.data.updateCourse()
+    // updateCourse() accepts several arguments
     await context.data
       .updateCourse(
         id,
@@ -65,18 +72,23 @@ const UpdateCourse = ({ context }) => {
         context.authenticatedUser.password
       )
       .then((errors) => {
+        //  Check if there are items in the array returned by the Promise, using errors.length
+        //  If there are items in the array, it means that there are errors to display to the user
         if (errors.length) {
+          // In the if block, use setErrors() to update the errors state to the returned errors
           setErrors(errors);
         } else {
           navigate("/");
         }
       })
       .catch((err) => {
+        // In the event of an error, navigate the user from /signin to /error
         console.error(err);
         navigate("/error");
       });
   };
 
+  // Function for "Cancel" button that returns the user to the default route
   const handleCancel = (e) => {
     e.preventDefault();
     navigate(`/courses/${id}`);
@@ -85,6 +97,7 @@ const UpdateCourse = ({ context }) => {
   return (
     <div className="wrap">
       <h2>Update Course</h2>
+      {/* Display validation errors returned from the REST API if there are any */}
       {errors && errors.length ? (
         <div className="validation--errors">
           <h3>Validation Errors</h3>
