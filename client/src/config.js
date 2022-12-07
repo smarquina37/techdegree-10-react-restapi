@@ -1,4 +1,3 @@
 export default {
-  apiBaseUrl:
-    "https://techdegree-10-react-restapi-production.up.railway.app/api",
+  apiBaseUrl: "http://localhost:5000/api",
 };
